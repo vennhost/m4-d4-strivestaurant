@@ -1,12 +1,12 @@
 import React from "react";
 import { Navbar, Nav } from "react-bootstrap";
 
-const NavBar = ({ title }) => {
+const NavBar = (props) => {
   return (
     <div>
       <Navbar collapseOnSelect expand="md" bg="dark" variant="dark">
         <Navbar.Brand href="/">
-          {title} - Striving For Food
+          {props.title} - Striving For Food
           </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">

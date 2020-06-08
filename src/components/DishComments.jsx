@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import { Container, Alert, ListGroup, Badge } from "react-bootstrap";
+import { Alert, ListGroup, Badge } from "react-bootstrap";
 
 class DishComments extends Component {
   render() {
     return (
-      <Container>
+      <>
         {this.props.selectedDish && (
           <ListGroup className="mt-5">
             <h2 className="text-center mb-3">{this.props.selectedDish.name}</h2>
@@ -41,7 +41,7 @@ class DishComments extends Component {
             No dish selected, please click on a Dish to show the comments
           </Alert>
         )}
-      </Container>
+      </>
     );
   }
 }

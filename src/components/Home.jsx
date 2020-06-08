@@ -2,13 +2,16 @@ import React, { Component } from "react";
 import { Container, Carousel, Row, Col } from "react-bootstrap";
 import items from "../data/menu.json";
 import DishComments from "./DishComments";
-import Reservations from "./Reservations";
-import ReservationForm from "./ReservationForm";
+import Reservations from './Reservations'
+import ReservationForm from './ReservationForm'
 
 class Home extends Component {
-  state = {
-    selectedDish: null,
-    whatever: this.props.test
+  constructor(params) {
+    super(params);
+    // initializing the state on page refresh
+    this.state = {
+      selectedDish: null,
+    };
   }
 
   selectNewDish = (dish) => {
@@ -41,17 +44,17 @@ class Home extends Component {
           </Col>
         </Row>
         <Row>
-          <Col xs={12} >
+          <Col xs={8} className="text-center ml-auto mr-auto">
             <DishComments selectedDish={this.state.selectedDish} />
           </Col>
         </Row>
         <Row>
-          <Col xs={12} >
+          <Col xs={12}>
             <Reservations />
           </Col>
         </Row>
         <Row>
-          <Col xs={12} >
+          <Col xs={12}>
             <ReservationForm />
           </Col>
         </Row>

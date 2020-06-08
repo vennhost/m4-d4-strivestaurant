@@ -1,72 +1,105 @@
-import React from 'react'
-import { Form, Row, Col, Button } from 'react-bootstrap'
-
+import React from "react";
+import { Row, Col, Button, Form, Spinner, Alert } from "react-bootstrap";
 
 class ReservationForm extends React.Component {
-  state = {
-    reservation: {
-      name: '',
-      phone: '',
-      numberOfPersons: 1,
-      smoking: false,
-      dateTime: '',
-      specialRequests: ''
-    }
+  constructor(props) {
+    super(props);
+    this.state = {
+      reservation: {
+        name: "",
+        phone: "",
+        people: 1,
+        smoking: false,
+        dateTime: "",
+        specialRequests: ""
+      },
+      isLoading: false,
+      errMess: ""
+    };
   }
 
   submitReservation = async e => {
     e.preventDefault();
+    this.setState({
+      isLoading: true
+    });
+
     try {
       let response = await fetch("https://striveschool.herokuapp.com/api/reservation", {
         method: "POST",
         body: JSON.stringify(this.state.reservation),
         headers: {
-          "Content-Type": 'application/json'
+          "Content-Type": "application/json"
         }
-      })
+      });
       if (response.ok) {
-        alert('Reservation saved!')
+        alert('Reservation saved!');
         this.setState({
+          isLoading: false,
+          errMess: "",
           reservation: {
-            name: '',
-            phone: '',
-            numberOfPersons: 1,
+            name: "",
+            phone: "",
+            people: 1,
             smoking: false,
-            dateTime: '',
-            specialRequests: ''
+            dateTime: "",
+            specialRequests: ""
           }
-        })
+        });
       } else {
-        let json = await response.json()
-        alert(json)
+        let json = await response.json();
+        this.setState({
+          errMess: json.message,
+          isLoading: false
+        });
       }
-    } catch (e) {
-      console.log(e)
+    } catch (err) {
+      console.log(err);
+      this.setState({
+        errMess: err.message,
+        isLoading: false
+      });
     }
-  }
+  };
 
-  updateReservationField = event => {
-    // console.log('event', event)
-    let reservation = this.state.reservation
-    let currentId = event.currentTarget.id
-    console.log(currentId)
+  updateReservationField = input => {
+    let reservation = this.state.reservation;
+    let currentId = input.currentTarget.id;
 
-    if (currentId === 'phone' || currentId === 'numberOfPersons') {
-      reservation[currentId] = parseInt(event.currentTarget.value)
-    } else if (currentId === 'smoking') {
-      reservation[currentId] = event.currentTarget.checked
+    switch (currentId) {
+      case "people":
+        reservation[currentId] = parseInt(input.currentTarget.value);
+        break;
+      case "smoking":
+        reservation[currentId] = input.currentTarget.checked;
+        break;
+      default:
+        reservation[currentId] = input.currentTarget.value;
     }
-    else {
-      reservation[currentId] = event.currentTarget.value
-    }
 
-    this.setState({ reservation: reservation })
-  }
+    this.setState({ reservation: reservation });
+  };
 
   render() {
     return (
-      <div className="mt-5 mb-5">
-        <h3>RESERVE YOUR TABLE NOW!</h3>
+      <div className="mb-3">
+        {this.state.errMess.length > 0 && (
+          <Alert variant="danger">
+            We encountered a problem while processing your request:{" "}
+            {this.state.errMess}
+          </Alert>
+        )}
+        <h3>Reserve your table now!</h3>
+        {
+          this.state.isLoading && (
+            <div className="d-flex justify-content-center my-5">
+              Reserving your table, please wait
+              <div className="ml-2">
+                <Spinner animation="border" variant="success" />
+              </div>
+            </div>
+          )
+        }
         <Form onSubmit={this.submitReservation}>
           <Row>
             <Col md={6}>
@@ -162,8 +195,8 @@ class ReservationForm extends React.Component {
           <Button type="submit">Submit</Button>
         </Form>
       </div>
-    )
+    );
   }
 }
 
-export default ReservationForm
+export default ReservationForm;
