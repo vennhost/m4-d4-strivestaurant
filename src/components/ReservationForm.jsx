@@ -8,7 +8,7 @@ class ReservationForm extends React.Component {
       reservation: {
         name: "",
         phone: "",
-        people: 1,
+        numberOfPersons: 1,
         smoking: false,
         dateTime: "",
         specialRequests: ""
@@ -40,7 +40,7 @@ class ReservationForm extends React.Component {
           reservation: {
             name: "",
             phone: "",
-            people: 1,
+            numberOfPersons: 1,
             smoking: false,
             dateTime: "",
             specialRequests: ""
@@ -67,9 +67,6 @@ class ReservationForm extends React.Component {
     let currentId = input.currentTarget.id;
 
     switch (currentId) {
-      case "people":
-        reservation[currentId] = parseInt(input.currentTarget.value);
-        break;
       case "smoking":
         reservation[currentId] = input.currentTarget.checked;
         break;
