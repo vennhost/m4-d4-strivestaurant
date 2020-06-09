@@ -1,20 +1,12 @@
 import React, { Component } from "react";
 import { Container, Carousel, Row, Col } from "react-bootstrap";
-import items from "../data/menu.json";
-import DishComments from "./DishComments";
+import dishes from "../data/menu.json";
 
 class Home extends Component {
-  constructor(params) {
-    super(params);
-    // initializing the state on page refresh
-    this.state = {
-      selectedDish: null,
-    };
-  }
 
   selectNewDish = (dish) => {
     console.log("Dish selected", dish);
-    this.setState({ selectedDish: dish });
+    this.props.history.push("/details/" + dish.id)
   };
 
   render() {
@@ -28,7 +20,7 @@ class Home extends Component {
             <hr className="my-2" />
             <p>Come and visit us, we can only cook Pasta!</p>
             <Carousel className="mt-2">
-              {items.map((item) => {
+              {dishes.map((item) => {
                 return (
                   <Carousel.Item key={item.id}>
                     <img src={item.image} alt={item.name} className="d-block w-100" onClick={() => this.selectNewDish(item)} />
@@ -40,11 +32,6 @@ class Home extends Component {
                 );
               })}
             </Carousel>
-          </Col>
-        </Row>
-        <Row>
-          <Col xs={8} className="text-center ml-auto mr-auto">
-
           </Col>
         </Row>
       </Container>

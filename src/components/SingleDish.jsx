@@ -1,7 +1,6 @@
 import React from 'react'
 import { Row, Col, Image, Badge } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-import DishComments from './DishComments'
 
 const SingleDish = ({ dish }) => (
     <Row>

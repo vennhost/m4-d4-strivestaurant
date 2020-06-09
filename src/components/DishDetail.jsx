@@ -21,7 +21,7 @@ class DishDetail extends React.Component {
         console.log('DISHDETAIL PROPS --> ', this.props)
         return (
             <Container>
-                {this.state.loading && <h1>LOADING</h1>}
+                {this.state.loading && <h1>LOADING...</h1>}
                 {this.state.dish && (
                     <>
                         <Row>
