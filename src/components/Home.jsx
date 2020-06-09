@@ -44,7 +44,7 @@ class Home extends Component {
         </Row>
         <Row>
           <Col xs={8} className="text-center ml-auto mr-auto">
-            <DishComments selectedDish={this.state.selectedDish} />
+
           </Col>
         </Row>
       </Container>
