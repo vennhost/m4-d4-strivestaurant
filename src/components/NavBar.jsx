@@ -1,19 +1,37 @@
 import React from "react";
 import { Navbar, Nav } from "react-bootstrap";
+import { Link, withRouter } from 'react-router-dom'
 
 const NavBar = (props) => {
   return (
     <div>
+      {console.log('NAVBAR PROPS --> ', props)}
       <Navbar collapseOnSelect expand="md" bg="dark" variant="dark">
-        <Navbar.Brand href="/">
-          {props.title} - Striving For Food
+        <Link to="/">
+          <Navbar.Brand>
+            {props.title} - Striving For Food
           </Navbar.Brand>
+        </Link>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="ml-auto">
-            <Nav.Link>Menu</Nav.Link>
-            <Nav.Link>Reservation</Nav.Link>
-            <Nav.Link>Our Location</Nav.Link>
+            <Link to="/menu"
+              className={
+                props.location.pathname === '/menu'
+                  ? "nav-link active"
+                  : "nav-link"
+              }>
+              Menu
+            </Link>
+            <Link to="/reservation"
+              className={
+                props.location.pathname === '/reservation'
+                  ? "nav-link active"
+                  : "nav-link"
+              }>
+              Reservation
+            </Link>
+            <Link to="/location" className="nav-link">Our Location</Link>
           </Nav>
         </Navbar.Collapse>
       </Navbar>
@@ -21,4 +39,4 @@ const NavBar = (props) => {
   );
 }
 
-export default NavBar;
+export default withRouter(NavBar);

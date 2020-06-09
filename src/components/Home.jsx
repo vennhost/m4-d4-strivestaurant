@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import { Container, Carousel, Row, Col } from "react-bootstrap";
 import items from "../data/menu.json";
 import DishComments from "./DishComments";
-import Reservations from './Reservations'
-import ReservationForm from './ReservationForm'
 
 class Home extends Component {
   constructor(params) {
@@ -20,6 +18,7 @@ class Home extends Component {
   };
 
   render() {
+    console.log('HOME PROPS --> ', this.props)
     return (
       <Container>
         <Row className="justify-content-center mt-3">
@@ -46,16 +45,6 @@ class Home extends Component {
         <Row>
           <Col xs={8} className="text-center ml-auto mr-auto">
             <DishComments selectedDish={this.state.selectedDish} />
-          </Col>
-        </Row>
-        <Row>
-          <Col xs={12}>
-            <Reservations />
-          </Col>
-        </Row>
-        <Row>
-          <Col xs={12}>
-            <ReservationForm />
           </Col>
         </Row>
       </Container>

@@ -1,6 +1,7 @@
 import React from "react";
-import { Spinner, ListGroup, Alert } from "react-bootstrap";
+import { Container, Spinner, ListGroup, Alert } from "react-bootstrap";
 import { format, parseISO } from "date-fns";
+import ReservationForm from './ReservationForm'
 
 class Reservations extends React.Component {
   constructor(props) {
@@ -31,8 +32,9 @@ class Reservations extends React.Component {
   };
 
   render() {
+    console.log('RESERVATION PROPS --> ', this.props)
     return (
-      <>
+      <Container>
         <h3 className="mt-5 mb-3">RESERVATIONS</h3>
         {this.state.isLoading && (
           <div className="d-flex justify-content-center mb-5">
@@ -58,7 +60,8 @@ class Reservations extends React.Component {
           </div>
         )}
         {this.state.errMess && <Alert variant="warning">Cannot load the reservations: {this.state.errMess}</Alert>}
-      </>
+        <ReservationForm />
+      </Container>
     );
   }
 }
